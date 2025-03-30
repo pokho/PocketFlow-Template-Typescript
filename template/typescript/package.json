@@ -6,8 +6,8 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsup",
-    "dev": "nodemon --exec ts-node src/index.ts",
-    "start": "ts-node src/index.ts",
+    "dev": "ts-node src/index.ts",
+    "start": "npm run build && node dist/index.js",
     "test": "vitest",
     "lint": "eslint src --ext .ts,.js,.jsx,.tsx"
   },
@@ -27,7 +27,6 @@
     "@typescript-eslint/parser": "^8.28.0",
     "eslint": "^9.23.0",
     "globals": "^16.0.0",
-    "nodemon": "^3.0.3",
     "prettier": "^2.8.8",
     "prompt-sync": "^4.2.0",
     "ts-node": "^10.9.2",
