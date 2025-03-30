@@ -35,9 +35,6 @@ npm test
 
 # Lint code
 npm run lint
-
-# Format code
-npm run format
 ```
 
 ## Project Structure
@@ -47,14 +44,19 @@ npm run format
 ├── src/
 │   ├── index.ts        # Main entry point
 │   ├── types.ts        # Type definitions
-│   ├── utils.ts        # Utility functions
-│   └── *.test.ts       # Test files
+│   ├── nodes.ts        # Node definitions
+│   ├── flow.ts         # Flow related functionality
+│   └── utils/          # Utility functions
+│       └── callLlm.ts  # LLM API integration
+├── docs/               # Documentation
+│   └── design.md       # Design documentation
 ├── dist/               # Compiled output
-├── .eslintrc.json      # ESLint configuration
-├── .prettierrc         # Prettier configuration
+├── tsup.config.ts      # Build configuration
+├── eslint.config.mjs   # ESLint configuration
 ├── jest.config.js      # Jest configuration
 ├── package.json        # Project dependencies and scripts
 ├── tsconfig.json       # TypeScript configuration
+├── .env.example        # Example environment variables
 └── README.md           # Project documentation
 ```
 
@@ -63,9 +65,10 @@ npm run format
 You can customize this template to fit your specific needs by:
 
 1. Modifying the TypeScript configuration in `tsconfig.json`
-2. Updating ESLint rules in `.eslintrc.json`
-3. Adjusting Prettier settings in `.prettierrc`
+2. Updating ESLint rules in `eslint.config.mjs`
+3. Configuring the build process in `tsup.config.ts`
 4. Adding more dependencies to `package.json`
+5. Setting up environment variables using `.env` (see `.env.example`)
 
 ## License
 
