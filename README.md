@@ -1,74 +1,47 @@
-# PocketFlow-Template-Typescript
+# Create PocketFlow
 
-A TypeScript template for creating PocketFlow applications.
+A CLI tool to easily create PocketFlow projects using the TypeScript template.
+
+## Usage
+
+```bash
+npx create-pocketflow
+# or
+npx create-pocketflow my-app
+```
 
 ## Features
 
-- TypeScript configuration
-- ESLint and Prettier setup
-- Jest testing framework
-- Basic project structure
-- Example utility functions and types
+- Creates a new PocketFlow project with a TypeScript template
+- Interactive command-line interface for customizing project setup
+- Sets up all the necessary dependencies and structure
 
-## Getting Started
-
-### Installation
+## Development
 
 ```bash
-npx create-pocketflow --template typescript
-```
+# Clone the repository
+git clone https://github.com/yourusername/create-pocketflow.git
+cd create-pocketflow
 
-### Development
-
-```bash
 # Install dependencies
 npm install
 
-# Build the project
-npm run build
+# Link the package globally for local testing
+npm link
 
-# Run development mode with watch
-npm run dev
-
-# Run tests
-npm test
-
-# Lint code
-npm run lint
+# Now you can use it like this
+create-pocketflow my-test-app
 ```
 
-## Project Structure
+## Publishing
 
+```bash
+# Login to npm
+npm login
+
+# Publish the package
+npm publish
 ```
-.
-├── src/
-│   ├── index.ts        # Main entry point
-│   ├── types.ts        # Type definitions
-│   ├── nodes.ts        # Node definitions
-│   ├── flow.ts         # Flow related functionality
-│   └── utils/          # Utility functions
-│       └── callLlm.ts  # LLM API integration
-├── docs/               # Documentation
-│   └── design.md       # Design documentation
-├── dist/               # Compiled output
-├── tsup.config.ts      # Build configuration
-├── eslint.config.mjs   # ESLint configuration
-├── jest.config.js      # Jest configuration
-├── package.json        # Project dependencies and scripts
-├── tsconfig.json       # TypeScript configuration
-├── .env.example        # Example environment variables
-└── README.md           # Project documentation
-```
-
-## Customizing the Template
-
-You can customize this template to fit your specific needs by:
-
-1. Modifying the TypeScript configuration in `tsconfig.json`
-2. Updating ESLint rules in `eslint.config.mjs`
-3. Configuring the build process in `tsup.config.ts`
-4. Adding more dependencies to `package.json`
-5. Setting up environment variables using `.env` (see `.env.example`)
 
 ## License
 
