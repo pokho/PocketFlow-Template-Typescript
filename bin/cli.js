@@ -53,12 +53,7 @@ program
             const templateDir = path.resolve(__dirname, '../template/typescript');
             console.log(chalk.blue(`Creating a new PocketFlow project in ${chalk.green(targetDir)}...`));
 
-            await fs.copy(templateDir, targetDir, {
-                filter: (src) => {
-                    // Don't copy node_modules
-                    return !src.includes('node_modules');
-                }
-            });
+            await fs.copy(templateDir, targetDir);
 
             // Update package.json in the new project
             const pkgJsonPath = path.join(targetDir, 'package.json');
