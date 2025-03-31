@@ -1,6 +1,6 @@
 {
   "name": "create-pocketflow",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "CLI tool to create PocketFlow projects",
   "main": "index.js",
   "bin": {
