@@ -1,35 +1,40 @@
 {
-  "name": "create-pocketflow",
-  "version": "0.1.3",
-  "description": "CLI tool to create PocketFlow projects",
-  "main": "index.js",
-  "type": "module",
-  "bin": {
-    "create-pocketflow": "./bin/cli.js"
-  },
-  "files": [
-    "bin",
-    "lib",
-    "template"
-  ],
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [
-    "pocketflow",
-    "create",
-    "template",
-    "cli"
-  ],
-  "author": "",
-  "license": "MIT",
-  "dependencies": {
-    "chalk": "^4.1.2",
-    "commander": "^9.4.1",
-    "fs-extra": "^11.1.1",
-    "inquirer": "^8.2.5"
-  },
-  "engines": {
-    "node": ">=18.0.0"
-  }
+    "name": "create-pocketflow",
+    "version": "0.1.3",
+    "description": "CLI tool to create PocketFlow projects",
+    "main": "index.js",
+    "type": "module",
+    "bin": {
+        "create-pocketflow": "./bin/cli.js"
+    },
+    "files": [
+        "bin",
+        "lib",
+        "template"
+    ],
+    "scripts": {
+        "prettier:all": "prettier --write \"**/*.js\""
+    },
+    "keywords": [
+        "pocketflow",
+        "create",
+        "template",
+        "cli"
+    ],
+    "author": "",
+    "license": "MIT",
+    "dependencies": {
+        "chalk": "^4.1.2",
+        "commander": "^9.4.1",
+        "fs-extra": "^11.1.1",
+        "inquirer": "^8.2.5"
+    },
+    "engines": {
+        "node": ">=18.0.0"
+    },
+    "devDependencies": {
+        "prettier": "^3.5.3",
+        "pretty-quick": "^4.1.1",
+        "simple-git-hooks": "^2.13.0"
+    }
 }
