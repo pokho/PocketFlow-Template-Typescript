@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { program } from 'commander';
-import { createProject } from '../lib/index.js'
+import { createProject } from '../lib/index.js';
 
 program
     .name('create-pocketflow')
@@ -10,4 +10,4 @@ program
         await createProject(projectDir);
     });
 
-program.parse(process.argv); 
+program.parse(process.argv);
