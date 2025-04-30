@@ -46,7 +46,7 @@ npm publish
 ## Future Features
 
 - [ ] Support for JavaScript template
-- [ ] Support different package managers (yarn, pnpm, bun, deno etc.)
+- [x] Support different package managers (yarn, pnpm, bun, deno etc.)
 - [ ] Support for different project types (library, full stack, api etc.)
 
 ## License
