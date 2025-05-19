@@ -1,6 +1,6 @@
 import { Flow } from 'pocketflow'
 import { GetQuestionNode, AnswerNode } from './nodes'
-import { QASharedStore } from './types'
+import type { QASharedStore } from './types'
 
 export function createQaFlow(): Flow {
   // Create nodes
