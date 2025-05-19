@@ -1,6 +1,6 @@
 import { Node } from 'pocketflow'
 import { callLlm } from './utils/callLlm'
-import { QASharedStore } from './types'
+import type { QASharedStore } from './types'
 import PromptSync from 'prompt-sync'
 
 const prompt = PromptSync()
