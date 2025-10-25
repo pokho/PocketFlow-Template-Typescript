@@ -48,6 +48,22 @@ npm publish
 - [ ] Support for JavaScript template
 - [x] Support different package managers (yarn, pnpm, bun, deno etc.)
 - [ ] Support for different project types (library, full stack, api etc.)
+- [ ] Add template customization options
+- [ ] Interactive project configuration wizard
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
+
+### Development Setup
+
+1. Fork the repository
+2. Clone your fork: `git clone https://github.com/yourusername/PocketFlow-Template-Typescript.git`
+3. Create a feature branch: `git checkout -b feature/amazing-feature`
+4. Make your changes
+5. Commit your changes: `git commit -m 'Add some amazing feature'`
+6. Push to the branch: `git push origin feature/amazing-feature`
+7. Open a Pull Request
 
 ## License
 
