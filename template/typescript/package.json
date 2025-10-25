@@ -8,6 +8,8 @@
     "build": "tsup",
     "dev": "ts-node src/index.ts",
     "start": "npm run build && node dist/index.js",
+    "demo:async": "ts-node src/demo-async.ts",
+    "demo:examples": "ts-node src/examples/async-examples.ts",
     "test": "vitest",
     "lint": "eslint src --ext .ts,.js,.jsx,.tsx"
   },
