@@ -9,6 +9,7 @@
     "dev": "ts-node src/index.ts",
     "start": "npm run build && node dist/index.js",
     "demo": "ts-node src/examples/simple-example.ts",
+    "demo:enhanced": "ts-node src/examples/enhanced-async-example.ts",
     "test": "vitest",
     "test:unit": "vitest test/unit",
     "test:integration": "vitest test/integration",
