@@ -8,9 +8,14 @@
     "build": "tsup",
     "dev": "ts-node src/index.ts",
     "start": "npm run build && node dist/index.js",
-    "demo:async": "ts-node src/working-async-demo.ts",
-    "demo:examples": "ts-node src/examples/async-examples.ts",
+    "demo": "ts-node src/examples/simple-example.ts",
     "test": "vitest",
+    "test:unit": "vitest test/unit",
+    "test:integration": "vitest test/integration",
+    "test:e2e": "vitest test/e2e",
+    "test:performance": "vitest test/performance",
+    "test:coverage": "vitest --coverage",
+    "test:watch": "vitest --watch",
     "lint": "eslint src --ext .ts,.js,.jsx,.tsx"
   },
   "keywords": [

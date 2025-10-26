@@ -1,19 +1,18 @@
 # PocketFlow-Template-Typescript
 
-A comprehensive TypeScript template for creating PocketFlow applications with full async support.
+A comprehensive TypeScript template for creating PocketFlow applications with built-in async support.
 
 ## Features
 
-- 🚀 **Full Async Support** - AsyncNode, AsyncFlow, AsyncBatchNode, AsyncParallelBatchNode
+- 🚀 **Async Support** - Built-in async/await support in all Node and Flow classes
 - 🔧 **TypeScript Configuration** - Modern TypeScript setup with strict type checking
 - 📝 **ESLint and Prettier** - Code quality and formatting tools
-- 🧪 **Vitest Testing** - Fast unit testing framework
 - 🏗️ **Project Structure** - Organized structure for scalable applications
 - 🤖 **LLM Integration** - Example utility functions and types
-- 📚 **Comprehensive Examples** - Real-world async workflow examples
+- 📚 **Working Examples** - Real-world workflow examples
 - 🔄 **Retry Logic** - Built-in error handling and retry mechanisms
-- ⚡ **Concurrent Processing** - Parallel async processing capabilities
-- 🎯 **AI Assistant Integration** - CLAUDE.md, GEMINI.md, and Copilot instructions
+- ⚡ **Batch Processing** - Parallel processing capabilities
+- 🎯 **AI Assistant Integration** - CLAUDE.md with TypeScript-specific guidance
 
 ## Getting Started
 
@@ -26,11 +25,8 @@ npm install
 # Run the basic template example
 npm run dev
 
-# Run the async demo (highly recommended!)
-npm run demo:async
-
-# Run comprehensive async examples
-npm run demo:examples
+# Run the basic demo
+npm run demo
 
 # Build the project
 npm run build
@@ -42,22 +38,22 @@ npm test
 npm run lint
 ```
 
-## Quick Start: Async Workflow
+## Quick Start: Basic Workflow
 
 ```typescript
-import { AsyncNode, AsyncFlow } from './async'
+import { Node, Flow } from 'pocketflow'
 
-class QuestionProcessor extends AsyncNode {
-  async prep_async(shared): Promise<string> {
+class QuestionProcessor extends Node {
+  async prep(shared): Promise<string> {
     return shared.user_question || ''
   }
 
-  async exec_async(question): Promise<string> {
+  async exec(question): Promise<string> {
     const prompt = `Answer this question: ${question}`
     return await callLlm(prompt)
   }
 
-  async post_async(shared, prep_res, exec_res): Promise<string> {
+  async post(shared, prep_res, exec_res): Promise<string> {
     shared.answer = exec_res
     return undefined  // End workflow
   }
