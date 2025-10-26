@@ -39,6 +39,12 @@ export class EnhancedAsyncNode<T = any> extends Node<T> {
     }
   }
 
+  async execFallback(prepRes: any, error: Error): Promise<any> {
+    // Default fallback implementation
+    console.warn(`Async operation failed: ${error.message}`)
+    return null
+  }
+
   async post(shared: T, prepRes: any, execRes: any): Promise<string | undefined> {
     return 'next'
   }

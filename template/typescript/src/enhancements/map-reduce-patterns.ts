@@ -197,6 +197,9 @@ export class WordCountFlow extends MapReduceFlow<string, Record<string, number>>
 export class BatchMapReduceFlow<T = any, R = any> extends MapReduceFlow<T, R> {
   private batchSize: number
   private batchDelay?: number
+  private mapFn: MapOperation<T, R>
+  private reduceFn: ReduceOperation<R, R>
+  private initialValue: R
 
   constructor(
     mapFn: MapOperation<T, R>,
@@ -208,25 +211,9 @@ export class BatchMapReduceFlow<T = any, R = any> extends MapReduceFlow<T, R> {
     super(mapFn, reduceFn, initialValue, options?.maxConcurrency)
     this.batchSize = batchSize
     this.batchDelay = options?.batchDelay
-  }
-  private mapFn: MapOperation<T, R>
-  private reduceFn: ReduceOperation<R, R>
-  private initialValue: R
-  private batchSize: number
-
-  constructor(
-    mapFn: MapOperation<T, R>,
-    reduceFn: ReduceOperation<R, R>,
-    initialValue: R,
-    batchSize: number = 100,
-    options?: { maxConcurrency?: number; batchDelay?: number }
-  ) {
-    const batchProcessor = new BatchMapReduceProcessor(mapFn, reduceFn, initialValue)
-    super(batchProcessor, options)
     this.mapFn = mapFn
     this.reduceFn = reduceFn
     this.initialValue = initialValue
-    this.batchSize = batchSize
   }
 
   async prepBatch(shared: {

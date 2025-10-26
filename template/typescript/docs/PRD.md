@@ -124,6 +124,22 @@ const batchNode = new BatchNode({
         return null; // Skip failed item
     }
 });
+
+// Example BatchNode implementation
+class ExampleBatchNode extends BatchNode {
+    async prep(shared: SharedStore): Promise<any[]> {
+        return shared.itemsToProcess || [];
+    }
+
+    async exec(item: any): Promise<any> {
+        return await this.processItem(item);
+    }
+
+    async post(shared: SharedStore, prepRes: any, execRes: any): Promise<string | undefined> {
+        shared.batchResults = execRes;
+        return "default";
+    }
+}
 ```
 
 **Error Handling Pattern:**
@@ -135,6 +151,31 @@ const resilientNode = new Node({
         return `Fallback result for ${input}`;
     }
 });
+
+// Example resilient Node implementation
+class ResilientNode extends Node {
+    constructor(config: NodeConfig) {
+        super({
+            maxRetries: config.maxRetries || 3,
+            wait: config.wait || 1000,
+            execFallback: config.execFallback
+        });
+    }
+
+    async prep(shared: SharedStore): Promise<any> {
+        return shared.input;
+    }
+
+    async exec(prepRes: any): Promise<any> {
+        // Core processing logic - avoid try-catch here
+        return await this.processData(prepRes);
+    }
+
+    async post(shared: SharedStore, prepRes: any, execRes: any): Promise<string | undefined> {
+        shared.results = { ...shared.results, processed: execRes };
+        return "default";
+    }
+}
 ```
 
 ## Utility Functions
@@ -292,7 +333,7 @@ const resilientNode = new Node({
 The shared memory structure is organized as follows:
 
 ```typescript
-interface SharedMemory {
+interface SharedStore {
   // Core workflow data
   input?: string | Record<string, any>;
   output?: string | Record<string, any>;
@@ -341,18 +382,18 @@ export class ProcessingNode extends Node {
         });
     }
 
-    prep(shared: SharedMemory): any {
-        // Read input from shared store
+    async prep(shared: SharedStore): Promise<any> {
+        // Read data from shared store
         return shared.input;
     }
 
-    async exec(input: any): Promise<any> {
+    async exec(prepRes: any): Promise<any> {
         // Core processing logic
         // Avoid exception handling - let retry mechanism work
-        return await this.processData(input);
+        return await this.processData(prepRes);
     }
 
-    post(shared: SharedMemory, prepRes: any, execRes: any): string {
+    async post(shared: SharedStore, prepRes: any, execRes: any): Promise<string | undefined> {
         // Store results in shared store
         shared.results = { ...shared.results, processed: execRes };
         shared.currentState = 'completed';
@@ -378,7 +419,7 @@ export class BatchProcessingNode extends BatchNode {
         });
     }
 
-    prep(shared: SharedMemory): any[] {
+    async prep(shared: SharedStore): Promise<any[]> {
         // Extract array of items to process
         return shared.input.items || [];
     }
@@ -388,7 +429,7 @@ export class BatchProcessingNode extends BatchNode {
         return await this.processItem(item);
     }
 
-    post(shared: SharedMemory, prepRes: any, execRes: any): string {
+    async post(shared: SharedStore, prepRes: any, execRes: any): Promise<string | undefined> {
         // Aggregate batch results
         shared.results = { ...shared.results, batchResults: execRes };
         return "default";
@@ -410,20 +451,26 @@ export class EnhancedAsyncNode extends Node {
         this.monitor = new PerformanceMonitor();
     }
 
-    async exec(input: any): Promise<any> {
+    async prep(shared: SharedStore): Promise<any> {
+        // Read input from shared store
+        return shared.input;
+    }
+
+    async exec(prepRes: any): Promise<any> {
         return await this.monitor.withMonitoring(
             'async_operation',
-            () => this.performAsyncOperation(input)
+            () => this.performAsyncOperation(prepRes)
         );
     }
 
-    post(shared: SharedMemory, prepRes: any, execRes: any): void {
+    async post(shared: SharedStore, prepRes: any, execRes: any): Promise<string | undefined> {
         // Store results with performance metrics
         shared.results = {
             ...shared.results,
             data: execRes.result,
             metrics: execRes.metrics
         };
+        return "default";
     }
 }
 ```
@@ -439,10 +486,15 @@ export class DecisionNode extends Node {
         super();
     }
 
-    async exec(input: any): Promise<string> {
+    async prep(shared: SharedStore): Promise<any> {
+        // Read input from shared store
+        return shared.input;
+    }
+
+    async exec(prepRes: any): Promise<string> {
         const prompt = `
         Analyze the following input and determine the appropriate action:
-        Input: ${JSON.stringify(input)}
+        Input: ${JSON.stringify(prepRes)}
 
         Available actions:
         - route_a: Route to processing path A
@@ -456,7 +508,7 @@ export class DecisionNode extends Node {
         return decision.trim().toLowerCase();
     }
 
-    post(shared: SharedMemory, prepRes: any, execRes: string): string {
+    async post(shared: SharedStore, prepRes: any, execRes: string): Promise<string | undefined> {
         // Route based on LLM decision
         shared.currentState = 'processing';
         return execRes; // Return the action name for routing

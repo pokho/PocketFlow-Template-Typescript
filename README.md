@@ -100,6 +100,86 @@ npm publish
 - [ ] **Multi-Language Support**: Python, Go, Rust templates
 - [ ] **Template Registry**: Community-contributed templates
 
+## Upgrading Existing Projects
+
+When a new version of the PocketFlow TypeScript template is released, existing projects can be upgraded to get the latest features, bug fixes, and improvements.
+
+### Version History
+
+Check the latest release notes to see what's new in each version:
+- **Template Changelog**: See `template/typescript/docs/PROJECT_STATUS.md` for detailed version history
+- **Test Results**: Review the latest test success rates and improvements
+- **New Features**: Enhanced async support, batch processing improvements, etc.
+
+### Manual Upgrade Process
+
+For existing projects created with an older version of this template:
+
+1. **Backup Your Project**
+   ```bash
+   cp -r your-project your-project-backup
+   ```
+
+2. **Update Core Template Files**
+   ```bash
+   # Compare and update key files (review changes before applying)
+   rm -rf template-files-backup/
+   mkdir template-files-backup
+
+   # Download or reference the latest template
+   # Then copy files selectively to preserve your customizations
+   ```
+
+3. **Key Files to Review for Updates**
+   ```bash
+   # Core framework files (usually safe to update)
+   template/typescript/src/enhancements/
+   template/typescript/test/
+   template/typescript/package.json
+   template/typescript/tsconfig.json
+
+   # Documentation (always safe to update)
+   template/typescript/docs/
+   template/typescript/CLAUDE.md
+   template/typescript/README.md
+   ```
+
+4. **Update Dependencies**
+   ```bash
+   cd your-project
+   npm update pocketflow
+   npm install  # Install any new dependencies
+   ```
+
+5. **Merge Strategy**
+   - **Preserve**: Your custom code in `src/`, custom configurations
+   - **Update**: Framework enhancements, bug fixes, test improvements
+   - **Review**: Breaking changes, new dependencies, configuration updates
+
+### Automated Upgrade Script (Future)
+
+Planned feature for automated upgrades:
+```bash
+# Coming soon: Automated upgrade command
+npx create-pocketflow --upgrade your-project
+```
+
+### Breaking Changes Notification
+
+Major template versions will include:
+- **Clear documentation** of breaking changes
+- **Migration guide** for updating custom code
+- **Backward compatibility** notes where applicable
+
+### Upgrade Benefits
+
+Upgrading to the latest template version provides:
+- ✅ **Bug Fixes**: Resolutions for critical defects
+- ✅ **Performance Improvements**: Enhanced async processing and batch handling
+- ✅ **New Features**: Latest enhancements like improved error handling
+- ✅ **Test Coverage**: Improved test success rates and coverage
+- ✅ **Type Safety**: Better TypeScript integration and type definitions
+
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.

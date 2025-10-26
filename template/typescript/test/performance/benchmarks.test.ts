@@ -45,19 +45,19 @@ class ProcessingNode extends Node<PerformanceState> {
     this.processingDelay = processingDelay
   }
 
-  async prep(shared: PerformanceState): Promise<string> {
-    return shared.data[0] || ''
+  async prep(shared: PerformanceState): Promise<string[]> {
+    return shared.data
   }
 
-  async exec(input: string): Promise<string> {
+  async exec(input: string[]): Promise<string[]> {
     await new Promise(resolve => setTimeout(resolve, this.processingDelay))
-    return `processed: ${input}`
+    return input.map(item => `processed: ${item}`)
   }
 
-  async post(shared: PerformanceState, prepRes: any, execRes: string): Promise<string | undefined> {
-    shared.results.push(execRes)
-    shared.data = shared.data.slice(1) // Remove processed item
-    return shared.data.length > 0 ? 'continue' : undefined
+  async post(shared: PerformanceState, prepRes: any, execRes: string[]): Promise<string | undefined> {
+    shared.results.push(...execRes)
+    shared.data = [] // Clear processed data
+    return undefined
   }
 }
 
@@ -66,9 +66,9 @@ class BatchProcessingNode extends BatchNode<PerformanceState> {
     return shared.data
   }
 
-  async exec(item: string): Promise<string> {
+  async _exec(items: string[]): Promise<string[]> {
     await new Promise(resolve => setTimeout(resolve, 5))
-    return `batch processed: ${item}`
+    return items.map(item => `batch processed: ${item}`)
   }
 
   async post(shared: PerformanceState, prepRes: any, execRes: string[]): Promise<string | undefined> {

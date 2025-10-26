@@ -171,6 +171,7 @@ describe('PocketFlow Pattern Matching Tests', () => {
       // Set up the conversation loop
       inputNode.on('analyze', analyzerNode)
       analyzerNode.on('continue', loopNode)
+      analyzerNode.on('default', undefined) // End flow on fallback
       loopNode.on('chat_input', inputNode)
 
       const chatFlow = new Flow(inputNode)
@@ -336,7 +337,7 @@ describe('PocketFlow Pattern Matching Tests', () => {
           throw new Error('LLM API failed')
         }
 
-        async execFallback(): Promise<string> {
+        async execFallback(prepRes: any, error: Error): Promise<string> {
           return 'I apologize, I am experiencing technical difficulties.'
         }
 

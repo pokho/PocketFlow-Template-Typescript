@@ -24,18 +24,21 @@ async function mockLLM(prompt: string, context?: string): Promise<string> {
 
 // Real-world node implementations
 class ChatInputNode extends Node<ChatState> {
-  async prep(shared: ChatState): Promise<string> {
-    return shared.userInput || 'Hello'
+  async prep(shared: ChatState): Promise<{ input: string; context: string }> {
+    const context = shared.messages.map(m => `${m.role}: ${m.content}`).join('\n')
+    return {
+      input: shared.userInput || 'Hello',
+      context
+    }
   }
 
-  async exec(input: string): Promise<string> {
-    const context = shared.messages.map(m => `${m.role}: ${m.content}`).join('\n')
-    return await mockLLM(input, context)
+  async exec(data: { input: string; context: string }): Promise<string> {
+    return await mockLLM(data.input, data.context)
   }
 
   async post(shared: ChatState, prepRes: any, execRes: string): Promise<string | undefined> {
     shared.botResponse = execRes
-    shared.messages.push({ role: 'user', content: prepRes })
+    shared.messages.push({ role: 'user', content: prepRes.input })
     shared.messages.push({ role: 'assistant', content: execRes })
     return 'analyze'
   }
@@ -122,6 +125,7 @@ describe('Real-World End-to-End Scenarios', () => {
 
       inputNode.on('analyze', analyzerNode)
       analyzerNode.on('continue', inputNode) // Loop back for more input
+      analyzerNode.on('default', inputNode) // Fallback transition
 
       const chatbot = new Flow(inputNode)
 
@@ -146,6 +150,7 @@ describe('Real-World End-to-End Scenarios', () => {
 
       inputNode.on('analyze', analyzerNode)
       analyzerNode.on('continue', inputNode)
+      analyzerNode.on('default', inputNode) // Fallback transition
 
       const chatbot = new Flow(inputNode)
 
@@ -209,7 +214,7 @@ describe('Real-World End-to-End Scenarios', () => {
           throw new Error('API rate limit exceeded')
         }
 
-        async execFallback(): Promise<string> {
+        async execFallback(prepRes: any, error: Error): Promise<string> {
           return 'I apologize, but I am currently experiencing high demand. Please try again later.'
         }
       }
@@ -226,6 +231,7 @@ describe('Real-World End-to-End Scenarios', () => {
 
       await flow.run(chatState)
 
+      expect(chatState.botResponse).toBeDefined()
       expect(chatState.botResponse).toContain('apologize')
       expect(chatState.messages).toHaveLength(1)
     })
