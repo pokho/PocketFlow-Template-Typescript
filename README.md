@@ -1,20 +1,68 @@
 # Create PocketFlow
 
-A CLI tool to easily create PocketFlow projects using the TypeScript template.
+A CLI tool to easily create PocketFlow projects using templates. This is **not** a PocketFlow project itself - it's a command-line tool that generates new projects from templates.
+
+## What This Is
+
+- **CLI Tool**: Creates new PocketFlow projects from templates (similar to `create-react-app`)
+- **Template-Based**: Currently provides a TypeScript template with AI-assisted development support
+- **Multi-Template Architecture**: Designed to support multiple languages and project types in the future
+
+## Project Structure
+
+```
+create-pocketflow/
+├── bin/                    # CLI entry points
+├── lib/                    # CLI implementation
+└── template/               # Project templates
+    └── typescript/         # TypeScript project template
+        ├── CLAUDE.md       # AI assistant instructions for TypeScript
+        ├── src/            # Source code structure
+        ├── docs/           # Documentation structure
+        └── package.json    # Template dependencies
+```
 
 ## Usage
 
+### Quick Start
 ```bash
-npx create-pocketflow
-# or
+# Create a new PocketFlow TypeScript project
 npx create-pocketflow my-app
+
+# Or use interactively (will prompt for project name)
+npx create-pocketflow
+```
+
+### What Gets Created
+When you run the CLI, it:
+1. **Copies the template** from `template/typescript/` to your new project directory
+2. **Initializes** with your preferred package manager (npm, yarn, pnpm, bun)
+3. **Sets up** the complete project structure with TypeScript configuration
+4. **Includes AI assistance** via the copied `CLAUDE.md` file
+
+### Example
+```bash
+npx create-pocketflow my-ai-assistant
+# Creates:
+# my-ai-assistant/
+# ├── CLAUDE.md          # TypeScript-specific AI guidance
+# ├── src/
+# │   ├── index.ts       # Entry point
+# │   ├── nodes.ts       # Node definitions
+# │   ├── flow.ts        # Flow creation
+# │   └── utils/         # Utility functions
+# ├── docs/
+# │   └── PRD.md         # Design documentation
+# └── package.json       # Project dependencies
 ```
 
 ## Features
 
-- Creates a new PocketFlow project with a TypeScript template
-- Interactive command-line interface for customizing project setup
-- Sets up all the necessary dependencies and structure
+- **Template-Based Generation**: Creates new PocketFlow projects from ready-made templates
+- **Interactive Setup**: Command-line interface for customizing project configuration
+- **Package Manager Support**: Works with npm, yarn, pnpm, bun, and deno
+- **AI-Assisted Development**: Includes specialized AI assistant guidance in each template
+- **Complete Project Structure**: Sets up source code, documentation, and configuration files
 
 ## Development
 
@@ -45,11 +93,12 @@ npm publish
 
 ## Future Features
 
-- [ ] Support for JavaScript template
-- [x] Support different package managers (yarn, pnpm, bun, deno etc.)
-- [ ] Support for different project types (library, full stack, api etc.)
-- [ ] Add template customization options
-- [ ] Interactive project configuration wizard
+- [ ] **JavaScript Template**: Add support for pure JavaScript projects
+- [x] **Package Manager Support**: Support for npm, yarn, pnpm, bun, deno
+- [ ] **Project Types**: Support for libraries, full-stack apps, APIs
+- [ ] **Template Customization**: Interactive template configuration options
+- [ ] **Multi-Language Support**: Python, Go, Rust templates
+- [ ] **Template Registry**: Community-contributed templates
 
 ## Contributing
 

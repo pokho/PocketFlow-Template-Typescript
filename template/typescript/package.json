@@ -10,6 +10,7 @@
     "start": "npm run build && node dist/index.js",
     "demo": "ts-node src/examples/simple-example.ts",
     "demo:enhanced": "ts-node src/examples/enhanced-async-example.ts",
+    "demo:phase2": "ts-node src/examples/phase2-advanced-examples.ts",
     "test": "vitest",
     "test:unit": "vitest test/unit",
     "test:integration": "vitest test/integration",
